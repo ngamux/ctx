@@ -18,8 +18,7 @@ mux.Post("/", func(rw http.ResponseWriter, r *http.Request) error {
 })
 ```
 
-or use handler adaptor
-
+or use handler adapter
 ```go
 mux.Post("/", ctx.Handler(func(c *ctx.Context) error {  
   var data interface{}
@@ -31,4 +30,19 @@ mux.Post("/", ctx.Handler(func(c *ctx.Context) error {
   
   return c.JSON(http.StatusOK, data)
 }))
+```
+
+or use mux adapter
+```go
+mux := ctx.Mux(ngamux.New())
+mux.Post("/", func(c *ctx.Context) error {  
+  var data interface{}
+  if err := c.GetJSON(&data); err != nil {
+    return c.JSON(http.StatusBadRequest, ngamux.Map{
+      "error": err.Error(),
+    })
+  }
+  
+  return c.JSON(http.StatusOK, data)
+})
 ```
