@@ -28,6 +28,6 @@ func TestHandler(t *testing.T) {
 		must.Nil(err)
 
 		must.Equal(notHandlerRW.Result().StatusCode, handlerRW.Result().StatusCode)
-		must.Equal(notHandlerRW.Result().Body, notHandlerRW.Result().Body)
+		must.Equal(notHandlerRW.Result().Body, handlerRW.Result().Body)
 	})
 }
