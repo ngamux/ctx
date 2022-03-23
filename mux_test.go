@@ -35,7 +35,7 @@ func TestCtxMuxGet(t *testing.T) {
 
 		rw := httptest.NewRecorder()
 		r := httptest.NewRequest(http.MethodGet, "/", nil)
-		cmux.mux.ServeHTTP(rw, r)
+		cmux.ServeHTTP(rw, r)
 
 		actualStatus := rw.Result().StatusCode
 		actualBody := strings.ReplaceAll(rw.Body.String(), "\n", "")
@@ -57,7 +57,7 @@ func TestCtxMuxPost(t *testing.T) {
 
 		rw := httptest.NewRecorder()
 		r := httptest.NewRequest(http.MethodPost, "/", nil)
-		cmux.mux.ServeHTTP(rw, r)
+		cmux.ServeHTTP(rw, r)
 
 		actualStatus := rw.Result().StatusCode
 		actualBody := strings.ReplaceAll(rw.Body.String(), "\n", "")
@@ -79,7 +79,7 @@ func TestCtxMuxPut(t *testing.T) {
 
 		rw := httptest.NewRecorder()
 		r := httptest.NewRequest(http.MethodPut, "/", nil)
-		cmux.mux.ServeHTTP(rw, r)
+		cmux.ServeHTTP(rw, r)
 
 		actualStatus := rw.Result().StatusCode
 		actualBody := strings.ReplaceAll(rw.Body.String(), "\n", "")
@@ -101,7 +101,7 @@ func TestCtxMuxPatch(t *testing.T) {
 
 		rw := httptest.NewRecorder()
 		r := httptest.NewRequest(http.MethodPatch, "/", nil)
-		cmux.mux.ServeHTTP(rw, r)
+		cmux.ServeHTTP(rw, r)
 
 		actualStatus := rw.Result().StatusCode
 		actualBody := strings.ReplaceAll(rw.Body.String(), "\n", "")
@@ -123,7 +123,7 @@ func TestCtxMuxDelete(t *testing.T) {
 
 		rw := httptest.NewRecorder()
 		r := httptest.NewRequest(http.MethodDelete, "/", nil)
-		cmux.mux.ServeHTTP(rw, r)
+		cmux.ServeHTTP(rw, r)
 
 		actualStatus := rw.Result().StatusCode
 		actualBody := strings.ReplaceAll(rw.Body.String(), "\n", "")
@@ -145,7 +145,7 @@ func TestCtxMuxAll(t *testing.T) {
 
 		rw := httptest.NewRecorder()
 		r := httptest.NewRequest(http.MethodGet, "/", nil)
-		cmux.mux.ServeHTTP(rw, r)
+		cmux.ServeHTTP(rw, r)
 
 		actualStatus := rw.Result().StatusCode
 		actualBody := strings.ReplaceAll(rw.Body.String(), "\n", "")

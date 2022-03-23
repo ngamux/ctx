@@ -1,6 +1,10 @@
 package ctx
 
-import "github.com/ngamux/ngamux"
+import (
+	"net/http"
+
+	"github.com/ngamux/ngamux"
+)
 
 type CtxMux struct {
 	mux *ngamux.Ngamux
@@ -34,4 +38,8 @@ func (m *CtxMux) Delete(path string, handler CtxHandler) {
 
 func (m *CtxMux) All(path string, handler CtxHandler) {
 	m.mux.All(path, Handler(handler))
+}
+
+func (m *CtxMux) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+	m.mux.ServeHTTP(rw, r)
 }
