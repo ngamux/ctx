@@ -1,6 +1,7 @@
 package ctx
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/ngamux/ngamux"
@@ -20,6 +21,14 @@ func New(rw http.ResponseWriter, r *http.Request) *Context {
 
 // REQUEST
 
+func (c *Context) Request() *http.Request {
+	return c.r
+}
+
+func (c *Context) Context() context.Context {
+	return c.r.Context()
+}
+
 func (c *Context) GetJSON(store interface{}) error {
 	return ngamux.GetJSON(c.r, store)
 }
@@ -33,6 +42,10 @@ func (c *Context) GetQuery(key string) string {
 }
 
 // RESPONSE
+
+func (c *Context) Response() http.ResponseWriter {
+	return c.rw
+}
 
 func (c *Context) JSON(status int, data interface{}) error {
 	return ngamux.JSONWithStatus(c.rw, status, data)
