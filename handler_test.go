@@ -14,16 +14,16 @@ func TestHandler(t *testing.T) {
 
 		notHandlerRW := httptest.NewRecorder()
 		notHandlerR := httptest.NewRequest(http.MethodGet, "/", nil)
-		err := func(rw http.ResponseWriter, r *http.Request) error {
-			c := New(rw, r)
-			return c.String(200, "aaa")
+		err := func(w http.ResponseWriter, r *http.Request) error {
+			c := New(w, r)
+			return c.Res().Status(http.StatusOK).Text("aaa")
 		}(notHandlerRW, notHandlerR)
 		must.Nil(err)
 
 		handlerRW := httptest.NewRecorder()
 		handlerR := httptest.NewRequest(http.MethodGet, "/", nil)
 		err = Handler(func(c *Context) error {
-			return c.String(200, "aaa")
+			return c.Res().Status(http.StatusOK).Text("aaa")
 		})(handlerRW, handlerR)
 		must.Nil(err)
 

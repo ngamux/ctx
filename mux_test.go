@@ -14,7 +14,7 @@ func TestMux(t *testing.T) {
 	t.Run("should return CtxMux", func(t *testing.T) {
 		must := must.New(t)
 
-		mux := ngamux.New()
+		mux := ngamux.New(ngamux.WithLogLevel(ngamux.LogLevelQuiet))
 		expected := &CtxMux{mux}
 		actual := Mux(mux)
 
@@ -27,11 +27,11 @@ func TestCtxMuxGet(t *testing.T) {
 	t.Run("should append route with Get method", func(t *testing.T) {
 		must := must.New(t)
 
-		cmux := Mux(ngamux.New())
+		cmux := Mux(ngamux.New(ngamux.WithLogLevel(ngamux.LogLevelQuiet)))
 
 		expectedStatus := 200
 		expectedBody := "hore"
-		cmux.Get("/", func(c *Context) error { return c.String(expectedStatus, expectedBody) })
+		cmux.Get("/", func(c *Context) error { return c.Res().Status(expectedStatus).Text(expectedBody) })
 
 		rw := httptest.NewRecorder()
 		r := httptest.NewRequest(http.MethodGet, "/", nil)
@@ -49,11 +49,11 @@ func TestCtxMuxPost(t *testing.T) {
 	t.Run("should append route with Post method", func(t *testing.T) {
 		must := must.New(t)
 
-		cmux := Mux(ngamux.New())
+		cmux := Mux(ngamux.New(ngamux.WithLogLevel(ngamux.LogLevelQuiet)))
 
 		expectedStatus := 200
 		expectedBody := "hore"
-		cmux.Post("/", func(c *Context) error { return c.String(expectedStatus, expectedBody) })
+		cmux.Post("/", func(c *Context) error { return c.Res().Status(expectedStatus).Text(expectedBody) })
 
 		rw := httptest.NewRecorder()
 		r := httptest.NewRequest(http.MethodPost, "/", nil)
@@ -71,11 +71,11 @@ func TestCtxMuxPut(t *testing.T) {
 	t.Run("should append route with Put method", func(t *testing.T) {
 		must := must.New(t)
 
-		cmux := Mux(ngamux.New())
+		cmux := Mux(ngamux.New(ngamux.WithLogLevel(ngamux.LogLevelQuiet)))
 
 		expectedStatus := 200
 		expectedBody := "hore"
-		cmux.Put("/", func(c *Context) error { return c.String(expectedStatus, expectedBody) })
+		cmux.Put("/", func(c *Context) error { return c.Res().Status(expectedStatus).Text(expectedBody) })
 
 		rw := httptest.NewRecorder()
 		r := httptest.NewRequest(http.MethodPut, "/", nil)
@@ -93,11 +93,11 @@ func TestCtxMuxPatch(t *testing.T) {
 	t.Run("should append route with Patch method", func(t *testing.T) {
 		must := must.New(t)
 
-		cmux := Mux(ngamux.New())
+		cmux := Mux(ngamux.New(ngamux.WithLogLevel(ngamux.LogLevelQuiet)))
 
 		expectedStatus := 200
 		expectedBody := "hore"
-		cmux.Patch("/", func(c *Context) error { return c.String(expectedStatus, expectedBody) })
+		cmux.Patch("/", func(c *Context) error { return c.Res().Status(expectedStatus).Text(expectedBody) })
 
 		rw := httptest.NewRecorder()
 		r := httptest.NewRequest(http.MethodPatch, "/", nil)
@@ -115,11 +115,11 @@ func TestCtxMuxDelete(t *testing.T) {
 	t.Run("should append route with Delete method", func(t *testing.T) {
 		must := must.New(t)
 
-		cmux := Mux(ngamux.New())
+		cmux := Mux(ngamux.New(ngamux.WithLogLevel(ngamux.LogLevelQuiet)))
 
 		expectedStatus := 200
 		expectedBody := "hore"
-		cmux.Delete("/", func(c *Context) error { return c.String(expectedStatus, expectedBody) })
+		cmux.Delete("/", func(c *Context) error { return c.Res().Status(expectedStatus).Text(expectedBody) })
 
 		rw := httptest.NewRecorder()
 		r := httptest.NewRequest(http.MethodDelete, "/", nil)
@@ -137,11 +137,11 @@ func TestCtxMuxAll(t *testing.T) {
 	t.Run("should append route with All method", func(t *testing.T) {
 		must := must.New(t)
 
-		cmux := Mux(ngamux.New())
+		cmux := Mux(ngamux.New(ngamux.WithLogLevel(ngamux.LogLevelQuiet)))
 
 		expectedStatus := 200
 		expectedBody := "hore"
-		cmux.All("/", func(c *Context) error { return c.String(expectedStatus, expectedBody) })
+		cmux.All("/", func(c *Context) error { return c.Res().Status(expectedStatus).Text(expectedBody) })
 
 		rw := httptest.NewRecorder()
 		r := httptest.NewRequest(http.MethodGet, "/", nil)

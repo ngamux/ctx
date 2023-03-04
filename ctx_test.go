@@ -1,49 +1,30 @@
 package ctx
 
 import (
-	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"strings"
 	"testing"
 
 	"github.com/golang-must/must"
+	"github.com/ngamux/ngamux"
 )
 
 func TestNew(t *testing.T) {
 	t.Run("should returns ctx.Context instance", func(t *testing.T) {
 		must := must.New(t)
 
-		rw := httptest.NewRecorder()
+		w := httptest.NewRecorder()
 		r := httptest.NewRequest(http.MethodGet, "/", nil)
 		expected := &Context{
-			rw,
-			r,
+			ngamux.Req(r),
+			ngamux.Res(w),
 		}
 
-		actual := New(rw, r)
+		actual := New(w, r)
 
 		must.NotNil(actual)
 		must.Equal(expected, actual)
-
-	})
-}
-
-func TestGetJSON(t *testing.T) {
-	expected := map[string]int{"id": 1}
-	dataJSON, _ := json.Marshal(expected)
-
-	rw := httptest.NewRecorder()
-	r := httptest.NewRequest(http.MethodGet, "/", strings.NewReader(string(dataJSON)))
-	c := New(rw, r)
-
-	t.Run("should returns JSON from body", func(t *testing.T) {
-		must := must.New(t)
-		var actual map[string]int
-		err := c.GetJSON(&actual)
-
-		must.Nil(err)
-		must.NotNil(actual)
-		must.Equal(expected, actual)
+		must.Equal(expected.req, actual.req)
+		must.Equal(expected.res, actual.res)
 	})
 }
