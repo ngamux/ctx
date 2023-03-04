@@ -28,3 +28,15 @@ func TestNew(t *testing.T) {
 		must.Equal(expected.res, actual.res)
 	})
 }
+
+func BenchmarkNew(b *testing.B) {
+	w := httptest.NewRecorder()
+	r := httptest.NewRequest(http.MethodGet, "/", nil)
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		for j := 0; j < 100; j++ {
+			New(w, r)
+		}
+	}
+}
