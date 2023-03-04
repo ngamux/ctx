@@ -36,6 +36,10 @@ func (m *CtxMux) Delete(path string, handler CtxHandler) {
 	m.mux.Delete(path, Handler(handler))
 }
 
+func (m *CtxMux) Head(path string, handler CtxHandler) {
+	m.mux.Head(path, Handler(handler))
+}
+
 func (m *CtxMux) All(path string, handler CtxHandler) {
 	m.mux.All(path, Handler(handler))
 }
