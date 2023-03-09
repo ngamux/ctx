@@ -26,6 +26,8 @@ func TestNew(t *testing.T) {
 		must.Equal(expected, actual)
 		must.Equal(expected.req, actual.req)
 		must.Equal(expected.res, actual.res)
+		must.Equal(expected.Req(), actual.Req())
+		must.Equal(expected.Res(), actual.Res())
 	})
 }
 
